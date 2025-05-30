@@ -5,12 +5,13 @@ using namespace std;
 float toRadians(float degrees) {
     return degrees * M_PI / 180.0;
 }
-float square(float n,int r){
-    float s  = 1;
-    for(int i=1;i<=r;i++){
-        s = s * n;
+
+float power(float base, int exponent) {
+    float result = 1;
+    for (int i = 1; i <= exponent; i++) {
+        result *= base;
     }
-    return s;
+    return result;
 }
 
 float find(const string& s) {
@@ -22,7 +23,8 @@ float find(const string& s) {
         int startBase = 3;
         int startNum = s.find('(');
         int endNum = s.find(')');
-        return log(stof(s.substr(startNum + 1, endNum - startNum - 1))) / log(stof(s.substr(startBase, startNum - startBase)));
+        return log(stof(s.substr(startNum + 1, endNum - startNum - 1))) /
+               log(stof(s.substr(startBase, startNum - startBase)));
     } else if (s.substr(0, 3) == "sin") {
         int start = s.find('(');
         int end = s.find(')');
@@ -38,6 +40,12 @@ float find(const string& s) {
         int end = s.find(')');
         float val = stof(s.substr(start + 1, end - start - 1));
         return tan(toRadians(val));
+    } else if (s.substr(0, 4) == "root") {
+        int degree = stoi(s.substr(4, s.find('(') - 4));
+        int start = s.find('(');
+        int end = s.find(')');
+        float number = stof(s.substr(start + 1, end - start - 1));
+        return pow(number, 1.0 / degree);
     } else {
         return stof(s);
     }
@@ -79,8 +87,8 @@ int main() {
                 }
                 result /= number;
                 break;
-            case '^' :
-                result = square(result,(int)number);
+            case '^':
+                result = power(result, (int)number);
                 break;
             default:
                 cout << "Invalid operation!\n";
@@ -88,7 +96,7 @@ int main() {
         }
 
         cout << "Current result: " << result << endl;
-        cout << result << " " ;
+        cout << result << " ";
     }
 
     return 0;
