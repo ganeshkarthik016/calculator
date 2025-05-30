@@ -78,6 +78,7 @@ int main() {
         }
 
         cout << "Current result: " << result << endl;
+        cout << result << " " << endl;
     }
 
     return 0;
