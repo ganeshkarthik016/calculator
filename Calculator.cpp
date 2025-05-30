@@ -5,6 +5,13 @@ using namespace std;
 float toRadians(float degrees) {
     return degrees * M_PI / 180.0;
 }
+float square(float n,int r){
+    float s  = 1;
+    for(int i=1;i<=r;i++){
+        s = s * n;
+    }
+    return s;
+}
 
 float find(const string& s) {
     if (s.substr(0, 2) == "ln") {
@@ -72,13 +79,16 @@ int main() {
                 }
                 result /= number;
                 break;
+            case '^' :
+                result = square(result,(int)number);
+                break;
             default:
                 cout << "Invalid operation!\n";
                 continue;
         }
 
         cout << "Current result: " << result << endl;
-        cout << result << " " << endl;
+        cout << result << " " ;
     }
 
     return 0;
